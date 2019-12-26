@@ -140,3 +140,39 @@ Warning: Permanently added 'github.com' (RSA) to the list of known hosts.
 这个警告只会出现一次，后面的操作就不会有任何警告了。
 
 如果你实在担心有人冒充GitHub服务器，输入`yes`前可以对照[GitHub的RSA Key的指纹信息](https://help.github.com/articles/what-are-github-s-ssh-key-fingerprints/)是否与SSH连接给出的一致。
+
+## 2、克隆远程库
+
+在终端通过如下指令即可克隆远程仓库：
+
+```
+$ git clone <仓库地址>
+```
+
+仓库地址有如下两种形式：
+
+```
+1. https://github.com/用户名/仓库名.git
+2. git@github.com:用户名/仓库名.git
+```
+
+> 提示：用第2中地址形式比第1中速度更快。
+
+当你从远程仓库克隆时，实际上Git自动把本地的`master`分支和远程的`master`分支对应起来了，并且，远程仓库的默认名称是`origin`。
+
+要查看远程库的信息，用 `git remote`：
+
+```
+$ git remote
+origin
+```
+
+或者，用 `git remote -v` 显示更详细的信息：
+
+```
+$ git remote -v
+origin	git@github.com:LiHongyao/GITProj.git (fetch)
+origin	git@github.com:LiHongyao/GITProj.git (push)
+```
+
+上面显示了可以抓取和推送的 `origin` 的地址。如果没有推送权限，就看不到push的地址。
