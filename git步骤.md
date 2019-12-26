@@ -264,7 +264,3 @@ $ git log --graph --abbrev-commit --pretty=oneline
 ```
 $ git merge --no-ff -m "合并信息" <分支名>
 ```
-
-nide
-
-Deeded
