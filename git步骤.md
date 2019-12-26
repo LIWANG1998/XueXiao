@@ -240,3 +240,31 @@ origin	git@github.com:LiHongyao/GITProj.git (push)
 - `git stash pop`：恢复工作状态
 - `git stash apply`：恢复工作状态
 - `git stash drop`：删除工作状态
+
+## 5. 解决冲突
+
+比如在 master 分支和 feature 分支上同时对某个文件进行了修改并且提交，如下所示：
+
+[![16](https://user-images.githubusercontent.com/12387544/35031675-ea605374-fb9e-11e7-99c6-b79ed67c7165.png)](https://user-images.githubusercontent.com/12387544/35031675-ea605374-fb9e-11e7-99c6-b79ed67c7165.png)
+
+那我们在合并分支的时候就会遇到冲突的情况，遇到冲突之后，直接到冲突的文件解决冲突，然后再次 add + commit即可，此时，合并之后的结构如下：
+
+现在，`master` 分支和 `feature`分支变成了下图所示：
+
+[![17](https://user-images.githubusercontent.com/12387544/35031759-4bef2796-fb9f-11e7-877e-3eb54a7cebca.png)](https://user-images.githubusercontent.com/12387544/35031759-4bef2796-fb9f-11e7-877e-3eb54a7cebca.png)
+
+通过如下指令可以查看分支的合并情况：
+
+```
+$ git log --graph --abbrev-commit --pretty=oneline
+```
+
+合并分支时，可添加 `--no-ff` 参数保留分支信息：
+
+```
+$ git merge --no-ff -m "合并信息" <分支名>
+```
+
+nide
+
+Deeded
