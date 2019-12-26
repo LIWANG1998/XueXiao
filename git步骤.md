@@ -176,3 +176,67 @@ origin	git@github.com:LiHongyao/GITProj.git (push)
 ```
 
 上面显示了可以抓取和推送的 `origin` 的地址。如果没有推送权限，就看不到push的地址。
+
+# 六、分支管理
+
+## 1. 分支分类
+
+1. master：主分支
+2. dev：开发时所用的分支
+3. bug：解决bug的分支
+4. feature：开发新功能分支
+
+## 2. 分支管理策略
+
+在实际开发中，我们应该按照几个基本原则进行分支管理：
+
+首先，`master` 分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；
+
+那在哪干活呢？干活都在 `dev` 分支上，也就是说，`dev` 分支是不稳定的，到某个时候，比如1.0版本发布时，再把 `dev` 分支合并到 `master` 上，在 `master` 分支发布1.0版本；
+
+你和你的小伙伴们每个人都在 `dev` 分支上干活，每个人都有自己的分支，时不时地往 `dev` 分支上合并就可以了。
+
+所以，团队合作的分支看起来就像这样：
+
+[![19](https://user-images.githubusercontent.com/12387544/35033548-13f2c9c2-fba6-11e7-9d61-9fffd6296fb4.png)](https://user-images.githubusercontent.com/12387544/35033548-13f2c9c2-fba6-11e7-9d61-9fffd6296fb4.png)
+
+## 3. 分支图解
+
+每次提交，Git都把它们串成一条时间线，这条时间线就是一个分支。截止到目前，只有一条时间线，在Git里，这个分支叫主分支，即 `master` 分支。`HEAD` 指向的就是当前分支。
+
+一开始的时候，`master` 分支是一条线，Git用 `master`指向最新的提交，再用`HEAD`指向`master`，就能确定当前分支，以及当前分支的提交点：
+
+[![10](https://user-images.githubusercontent.com/12387544/35029490-18c5bb4a-fb96-11e7-8238-8f4f052df91d.png)](https://user-images.githubusercontent.com/12387544/35029490-18c5bb4a-fb96-11e7-8238-8f4f052df91d.png)
+
+每次提交，`master` 分支都会向前移动一步，这样，随着你不断提交，`master`分支的线也越来越长。
+
+当我们创建新的分支，例如 `dev` 时，Git 新建了一个指针叫 `dev`，指向 `master` 相同的提交，再把 `HEAD` 指向 `dev`，就表示当前分支在 `dev` 上：
+
+[![11](https://user-images.githubusercontent.com/12387544/35029472-04b8171a-fb96-11e7-9545-32640704af87.png)](https://user-images.githubusercontent.com/12387544/35029472-04b8171a-fb96-11e7-9545-32640704af87.png)
+
+从现在开始，对工作区的修改和提交就是针对 `dev` 分支了，比如新提交一次后，`dev` 指针往前移动一步，而 `master` 指针不变：
+
+[![12](https://user-images.githubusercontent.com/12387544/35029375-a83c1f7c-fb95-11e7-916d-858d0b248c7c.png)](https://user-images.githubusercontent.com/12387544/35029375-a83c1f7c-fb95-11e7-916d-858d0b248c7c.png)
+
+假如我们在 `dev` 上的工作完成了，就可以把 `dev` 合并到 `master` 上。Git怎么合并呢？最简单的方法，就是直接把 `master` 指向 `dev` 的当前提交，就完成了合并.
+
+[![13](https://user-images.githubusercontent.com/12387544/35029358-93a32074-fb95-11e7-878e-286f84ee5c82.png)](https://user-images.githubusercontent.com/12387544/35029358-93a32074-fb95-11e7-878e-286f84ee5c82.png)
+
+合并完分支后，甚至可以删除`dev`分支。删除`dev`分支就是把`dev`指针给删掉，删掉后，我们就剩下了一条`master`分支：
+
+[![14](https://user-images.githubusercontent.com/12387544/35029189-b79adefa-fb94-11e7-94f1-1e8958b269fa.png)](https://user-images.githubusercontent.com/12387544/35029189-b79adefa-fb94-11e7-94f1-1e8958b269fa.png)
+
+## 4. 分支常用指令
+
+- `git branch`：查看分支
+- `git branch `：创建分支
+- `git checkout `：切换分支
+- `git checkout -b `：创建并切换分支
+- `git branch -d `：删除分支
+- `git branch -D `：强行删除分支（用在分支还未合并就要删除的情况）
+- `git merge `：合并分支
+- `git stash`：保存工作状态
+- `git stash list`：查看保存的工作状态
+- `git stash pop`：恢复工作状态
+- `git stash apply`：恢复工作状态
+- `git stash drop`：删除工作状态
