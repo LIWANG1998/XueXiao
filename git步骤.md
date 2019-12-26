@@ -40,8 +40,10 @@ $ git config --list
 - `git status`：查看工作区状态
 - `git diff`：查看修改
 - `git restore <文件>`：撤销修改
+- `git checkout . `：撤销修改
 - `git restore --staged <文件>`：撤销暂存
 - `git log --pretty=oneline --abbrev-commit` ：查看历史版本
 - `git reset --hard `：版本回退
 - `git reflog`：查看命令历史
 - `git rm <文件>`：删除文件
+- ..
