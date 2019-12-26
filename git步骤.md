@@ -46,4 +46,3 @@ $ git config --list
 - `git reset --hard `：版本回退
 - `git reflog`：查看命令历史
 - `git rm <文件>`：删除文件
-- ..
