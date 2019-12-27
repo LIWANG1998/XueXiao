@@ -264,3 +264,172 @@ $ git log --graph --abbrev-commit --pretty=oneline
 ```
 $ git merge --no-ff -m "合并信息" <分支名>
 ```
+
+# 七、标签管理
+
+标签是版本库的一个快照，它是指向某个 commit 的指针，创建和删除标签都是瞬间完成的。
+
+- `git tag [-a]  [-m ] []`：创建标签
+- `git tag`：查看标签
+- `git show `：查看标签信息
+- `git tag -d `：删除标签
+- `git push origin :refs/tags/`：删除远程标签
+- `git push origin `：推送标签
+- `git push origin --tags`：推送所有未推送到远程的本地标签
+
+# 八、团队协作
+
+## 1. **Collaborators**
+
+首先组长在github上创建仓库：
+
+[![img](https://github.com/LiHongyao/Blogs/raw/master/IMGS/git-create-repo.png)](https://github.com/LiHongyao/Blogs/blob/master/IMGS/git-create-repo.png)
+
+然后添加项目合作者，如下所示：
+
+[![img](https://github.com/LiHongyao/Blogs/raw/master/IMGS/git-add-collaborators.jpg)](https://github.com/LiHongyao/Blogs/blob/master/IMGS/git-add-collaborators.jpg)
+
+添加成功后被邀请的合作者会收到GitHub发送的邀请邮件，该邮件会发送到受邀人的github注册邮箱中。合作者进入邮箱点击 View Invitation，接受邀请即可。
+
+接下来合作者只需克隆主仓库至本地即可，这里使用SSH方式克隆:
+
+```
+$ git clone git@github.com:<用户名>/<仓库名>.git
+# 比如
+$ git clone git@github.com:LiHongyao/myProj.git
+```
+
+接下来进行正常开发即可...
+
+## 2. Fork & Pull request
+
+对于开源项目间的合作一般都会使用Fork & Pull request 的合作方式。A拥有一个开源 repo , B想参与该开源项目， 作为B，先要fork A开源项目的 repo 到自己账号的repo中，这样B便拥有了一个A开源项目的镜像repo。这样B可以正常的修改自己账号下的 A的开源项目镜像。并不会影响A 本身的开源repo, 如果哪天 B觉得 自己增加并完善了一个新功能, 或者fixed A repo 的某个bug, 就可以提一个pull request, 询问A是不是想要。
+
+[![img](https://github.com/LiHongyao/Blogs/raw/master/IMGS/git-fork.jpg)](https://github.com/LiHongyao/Blogs/blob/master/IMGS/git-fork.jpg)
+
+## 3. Organization & Team
+
+点击创建组织：
+
+[![img](https://github.com/LiHongyao/Blogs/raw/master/IMGS/git-Organization.jpg)](https://github.com/LiHongyao/Blogs/blob/master/IMGS/git-Organization.jpg)
+
+设置组织信息：
+
+[![img](https://github.com/LiHongyao/Blogs/raw/master/IMGS/git-setup-tem.jpg)](https://github.com/LiHongyao/Blogs/blob/master/IMGS/git-setup-tem.jpg)
+
+## 4. 扩展
+
+### 4.1. 解决冲突
+
+```
+# 拉取更新
+$ git pull
+```
+
+如果 `git pull` 提示 *“no tracking information”*，则说明本地分支和远程分支的链接关系没有创建，用命令:
+
+```
+$ git branch --set-upstream 分支名 origin/分支名
+```
+
+### 4.2. 更新远程仓库
+
+如果fork源仓库更新了内容，要更新fork之后的内容，操作如下：
+
+1. 查看远程信息
+
+```
+$ git remote -v
+```
+
+1. 添加远程库
+
+```
+$ git remote add upstream https://github.com/xxx/xxx(fork源仓库地址)
+```
+
+1. 从fork源仓库同步更新代码
+
+```
+$ git fetch upstream
+```
+
+1. 合并到本地代码
+
+```
+$ git merge upstream/master
+```
+
+1. 更新并合并自己远程仓库的代码
+
+```
+$ git pull origin master
+```
+
+1. 向自己远程仓库推送刚才同步源仓库后的代码
+
+```
+$ git push origin master
+```
+
+# 九、扩展
+
+## 1. 可视化工具
+
+下载地址：https://desktop.github.com/
+
+## 2. GitHub Pages
+
+我们可以将 **静态网页** 部署到 Github page，然后通过在线链接直接访问，具体操作如下：
+
+第1步：创建一个仓库，命名为：`用户名.github.io`，比如：lihongyao.github.io
+
+第2步：将静态网页直接存入该仓库，比如：lihongyao.github.io/proj
+
+第3步：浏览器输入地址：https://lihongyao.github.io/proj/index.html
+
+## 3. 码云
+
+https://gitee.com/
+
+# # git 指令大全
+
+
+
+| 指令                                                     | 描述                 |
+| -------------------------------------------------------- | -------------------- |
+| `git init`                                               | 创建版本库           |
+| `git add .`                                              | 添加文件至版本库     |
+| `git commit`                                             | 提交文件至版本库     |
+| `git status`                                             | 查看工作区状态       |
+| `git diff`                                               | 查看修改             |
+| `git log [--pretty=oneline] [--graph] [--abbrev-commit]` | 查看版本             |
+| `git reflog`                                             | 查看所有历史版本     |
+| `git reset --hard [commitID]`                            | 切换至指定版本       |
+| `git checkout -- `                                       | 撤销修改             |
+| `git reset HEAD `                                        | 移出暂存区           |
+| `git rm `                                                | 删除文件             |
+| `git remote add origin `                                 | 关联远程仓库         |
+| `git push [-u] origin master`                            | 推送至远程仓库       |
+| `git clone `                                             | 克隆远程仓库         |
+| `git branch `                                            | 查看/创建分支        |
+| `git checkout `                                          | 切换分支             |
+| `git checkout -b `                                       | 创建并切换分支       |
+| `git merge [--no-ff] `                                   | 合并分支             |
+| `git branch -d `                                         | 删除分支             |
+| `git branch -D `                                         | 删除未合并的分支     |
+| `git stash`                                              | 存储工作现场         |
+| `git stash list`                                         | 查看存储的工作现场   |
+| `git stash pop`                                          | 恢复工作现场(无痕迹) |
+| `git stash apply`                                        | 恢复工作现场(有痕迹) |
+| `git stash drop`                                         | 删除工作现场         |
+| `git remote -v`                                          | 查看远程库信息       |
+| `git push origin `                                       | 推送本地分支至远程库 |
+| `git tag `                                               | 创建标签             |
+| `git tag`                                                | 查看标签             |
+| `git show `                                              | 查看指定标签信息     |
+| `git tag -d `                                            | 删除本地指定标签     |
+| `git push origin :refs/tags/`                            | 删除指定远程标签     |
+| `git push origin `                                       | 推送指定标签至远程库 |
+| `git push origin --tags`                                 | 推送所有标签至远程库 |
+|                                                          |                      |
